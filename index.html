@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>x1Pico.net - Tài Xỉu Premium</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loginScreen">
+    <div class="login-container">
+      <div class="logo">
+        <i class="fas fa-dice"></i>
+        <h1>x1Pico.net</h1>
+      </div>
+      <h2>Tài Xỉu <span>Premium</span></h2>
+      <div class="input-group">
+        <input type="text" id="playerName" placeholder="Nhập tên của bạn">
+        <button onclick="startGame()">
+          <i class="fas fa-play"></i> Bắt đầu chơi
+        </button>
+      </div>
+      <div class="balance-info">
+        <p><i class="fas fa-coins"></i> Số dư khởi đầu: <span>100,000 VND</span></p>
+        <p><i class="fas fa-gift"></i> Phần thưởng: <span>X2, X10, X50</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameScreen" style="display:none">
+    <!-- Header -->
+    <div class="game-header">
+      <div class="player-info">
+        <div class="player-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div>
+          <div class="player-name" id="playerNameDisplay">Player</div>
+          <div class="player-balance">
+            <i class="fas fa-wallet"></i> <span id="balance">100,000</span> VND
+          </div>
+        </div>
+      </div>
+      
+      <div class="game-title">
+        <h2>Tài Xỉu <span>Premium</span></h2>
+      </div>
+      
+      <div class="header-right">
+        <div class="timer">
+          <i class="fas fa-clock"></i> <span id="countdown">30</span>s
+        </div>
+        <button id="logoutBtn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dice Area -->
+    <div class="dice-area">
+      <div class="dice-container">
+        <div class="dice" id="dice1"></div>
+        <div class="dice" id="dice2"></div>
+        <div class="dice" id="dice3"></div>
+      </div>
+      <div class="dice-result" id="diceResult">Chờ kết quả...</div>
+    </div>
+
+    <!-- Bet Grid -->
+    <div class="bet-grid">
+      <div class="bet-section">
+        <h3><i class="fas fa-chess-board"></i> Cược cơ bản</h3>
+        <div class="bet-row">
+          <button class="bet-btn" data-type="odd-low" data-odds="1">
+            <span>Lẻ + Xỉu</span>
+            <span>4-10 (1:1)</span>
+          </button>
+          <button class="bet-btn" data-type="even-high" data-odds="1">
+            <span>Chẵn + Tài</span>
+            <span>11-17 (1:1)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bet-section">
+        <h3><i class="fas fa-dice"></i> Cược đôi/ba</h3>
+        <div class="bet-row">
+          <button class="bet-btn" data-type="pair-1" data-odds="8">
+            <span>2 hột 1</span>
+            <span>1:8</span>
+          </button>
+          <button class="bet-btn" data-type="pair-2" data-odds="8">
+            <span>2 hột 2</span>
+            <span>1:8</span>
+          </button>
+          <button class="bet-btn" data-type="pair-3" data-odds="8">
+            <span>2 hột 3</span>
+            <span>1:8</span>
+          </button>
+          <button class="bet-btn" data-type="pair-4" data-odds="8">
+            <span>2 hột 4</span>
+            <span>1:8</span>
+          </button>
+          <button class="bet-btn" data-type="pair-5" data-odds="8">
+            <span>2 hột 5</span>
+            <span>1:8</span>
+          </button>
+          <button class="bet-btn" data-type="pair-6" data-odds="8">
+            <span>2 hột 6</span>
+            <span>1:8</span>
+          </button>
+        </div>
+        <div class="bet-row">
+          <button class="bet-btn" data-type="any-triple" data-odds="24">
+            <span>Bất kỳ bộ ba</span>
+            <span>1:24</span>
+          </button>
+          <button class="bet-btn" data-type="triple-1" data-odds="150">
+            <span>3 hột 1</span>
+            <span>1:150</span>
+          </button>
+          <button class="bet-btn" data-type="triple-2" data-odds="150">
+            <span>3 hột 2</span>
+            <span>1:150</span>
+          </button>
+          <button class="bet-btn" data-type="triple-3" data-odds="150">
+            <span>3 hột 3</span>
+            <span>1:150</span>
+          </button>
+          <button class="bet-btn" data-type="triple-4" data-odds="150">
+            <span>3 hột 4</span>
+            <span>1:150</span>
+          </button>
+          <button class="bet-btn" data-type="triple-5" data-odds="150">
+            <span>3 hột 5</span>
+            <span>1:150</span>
+          </button>
+          <button class="bet-btn" data-type="triple-6" data-odds="150">
+            <span>3 hột 6</span>
+            <span>1:150</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bet-section">
+        <h3><i class="fas fa-calculator"></i> Cược tổng</h3>
+        <div class="bet-row">
+          <button class="bet-btn" data-type="total-4" data-odds="50">Tổng 4 (1:50)</button>
+          <button class="bet-btn" data-type="total-5" data-odds="18">Tổng 5 (1:18)</button>
+          <button class="bet-btn" data-type="total-6" data-odds="14">Tổng 6 (1:14)</button>
+          <button class="bet-btn" data-type="total-7" data-odds="12">Tổng 7 (1:12)</button>
+          <button class="bet-btn" data-type="total-8" data-odds="8">Tổng 8 (1:8)</button>
+          <button class="bet-btn" data-type="total-9" data-odds="6">Tổng 9 (1:6)</button>
+          <button class="bet-btn" data-type="total-10" data-odds="6">Tổng 10 (1:6)</button>
+          <button class="bet-btn" data-type="total-11" data-odds="6">Tổng 11 (1:6)</button>
+          <button class="bet-btn" data-type="total-12" data-odds="6">Tổng 12 (1:6)</button>
+          <button class="bet-btn" data-type="total-13" data-odds="8">Tổng 13 (1:8)</button>
+          <button class="bet-btn" data-type="total-14" data-odds="12">Tổng 14 (1:12)</button>
+          <button class="bet-btn" data-type="total-15" data-odds="14">Tổng 15 (1:14)</button>
+          <button class="bet-btn" data-type="total-16" data-odds="18">Tổng 16 (1:18)</button>
+          <button class="bet-btn" data-type="total-17" data-odds="50">Tổng 17 (1:50)</button>
+        </div>
+      </div>
+
+      <div class="bet-section">
+        <h3><i class="fas fa-star"></i> Phần thưởng</h3>
+        <div class="bet-row">
+          <button class="bet-btn special" data-type="bonus-x2" data-odds="2">
+            <i class="fas fa-bolt"></i> X2 Tiền Thưởng
+          </button>
+          <button class="bet-btn special" data-type="bonus-x10" data-odds="10">
+            <i class="fas fa-fire"></i> X10 Tiền Thưởng
+          </button>
+          <button class="bet-btn special" data-type="bonus-x50" data-odds="50">
+            <i class="fas fa-gem"></i> X50 Tiền Thưởng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bet Controls -->
+    <div class="bet-controls">
+      <div class="bet-amount">
+        <label for="betAmount"><i class="fas fa-money-bill-wave"></i> Số tiền cược (VND):</label>
+        <input type="number" id="betAmount" min="1000" step="1000" value="1000">
+      </div>
+      <div class="quick-bet">
+        <button class="quick-btn" data-amount="1000">1K</button>
+        <button class="quick-btn" data-amount="5000">5K</button>
+        <button class="quick-btn" data-amount="10000">10K</button>
+        <button class="quick-btn" data-amount="50000">50K</button>
+        <button class="quick-btn" data-amount="100000">100K</button>
+      </div>
+      <button id="placeBetBtn" class="place-bet-btn">
+        <i class="fas fa-hand-holding-usd"></i> ĐẶT CƯỢC
+      </button>
+    </div>
+
+    <!-- Result Area -->
+    <div class="result-area">
+      <div id="result" class="result-message">
+        <i class="fas fa-info-circle"></i> Chờ kết quả...
+      </div>
+      <div class="history-section">
+        <h3><i class="fas fa-history"></i> Lịch sử cá cược</h3>
+        <div class="history-container">
+          <ul id="history"></ul>
+        </div>
+      </div>
+    </div>
+
+    <audio id="diceSound" src="sound/dice-roll.mp3"></audio>
+    <!-- <audio id="winSound" src="sound/win.mp3"></audio>
+    <audio id="loseSound" src="sound/lose.mp3"></audio> -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
