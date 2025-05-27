@@ -257,42 +257,42 @@ const CONFIG = {
             drawDots(diceElements[index], value);
         });
         
-        // Xử lý kết quả
+        // xử lý kết quả
         processResults(diceValues);
     }, 2000);
 }
   
-  // Vẽ các chấm trên xúc xắc
-  function drawDots(diceElement, value) {
-    diceElement.innerHTML = "";
+  // vẽ các chấm trên xúc xắc
+  function drawDots(diceElement, value){
+    diceElement.innerHTML="";
     DOT_POSITIONS[value].forEach(pos => {
-      const dot = document.createElement("div");
-      dot.className = "dot";
-      dot.style.left = `${pos[0]}%`;
-      dot.style.top = `${pos[1]}%`;
+      const dot=document.createElement("div");
+      dot.className="dot";
+      dot.style.left=`${pos[0]}%`;
+      dot.style.top=`${pos[1]}%`;
       diceElement.appendChild(dot);
     });
   }
   
-  function processResults(diceValues) {
-    const total = diceValues.reduce((sum, val) => sum + val, 0);
-    const isOdd = total % 2 !== 0;
-    const isLow = total >= 4 && total <= 10;
-    const isHigh = total >= 11 && total <= 17;
+  function processResults(diceValues){
+    const total=diceValues.reduce((sum, val) => sum + val, 0);
+    const isOdd=total % 2 !== 0;
+    const isLow=total >= 4 && total <= 10;
+    const isHigh=total >= 11 && total <= 17;
     
-    let totalWin = 0;
-    let totalLoss = 0;
-    let resultMessage = `🎲 Kết quả: ${diceValues.join(" - ")} | Tổng: ${total}\n\n`;
+    let totalWin=0;
+    let totalLoss=0;
+    let resultMessage=`🎲 Kết quả: ${diceValues.join(" - ")} | Tổng: ${total}\n\n`;
 
     currentBets.forEach(bet => {
-        const win = checkBetResult(bet.type, diceValues, total, isOdd, isLow, isHigh);
+        const win=checkBetResult(bet.type, diceValues, total, isOdd, isLow, isHigh);
         
-        if (win) {
-            const winAmount = bet.amount * bet.odds;
-            totalWin += winAmount;
-            resultMessage += `✅ ${bet.type} (${bet.odds}:1): +${winAmount.toLocaleString()} VND\n`;
-        } else {
-            totalLoss += bet.amount; // Tổng tiền thua chỉ để hiển thị
+        if (win){
+            const winAmount=bet.amount * bet.odds;
+            totalWin+=winAmount;
+            resultMessage+=`✅ ${bet.type} (${bet.odds}:1): +${winAmount.toLocaleString()} VND\n`;
+        } else{
+            totalLoss+=bet.amount; // Tổng tiền thua chỉ để hiển thị
             resultMessage += `❌ ${bet.type}: -${bet.amount.toLocaleString()} VND\n`;
         }
     });
