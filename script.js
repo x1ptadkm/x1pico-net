@@ -70,11 +70,11 @@ const CONFIG = {
     renderGameHistory(); // Đảm bảo render ngay khi load
     }
   
-  // Lưu dữ liệu game
+  // lưu dữ liệu game
   function saveGameData() {
     localStorage.setItem("playerName", player);
     localStorage.setItem("balance", balance);
-    localStorage.setItem("gameHistory", JSON.stringify(gameHistory)); // Kiểm tra dòng này
+    localStorage.setItem("gameHistory", JSON.stringify(gameHistory)); 
 }
   
   // Cập nhật số dư
@@ -287,7 +287,7 @@ const CONFIG = {
     currentBets.forEach(bet => {
         const win=checkBetResult(bet.type, diceValues, total, isOdd, isLow, isHigh);
         
-        if (win){
+        if(win){
             const winAmount=bet.amount * bet.odds;
             totalWin+=winAmount;
             resultMessage+=`✅ ${bet.type} (${bet.odds}:1): +${winAmount.toLocaleString()} VND\n`;
@@ -309,7 +309,7 @@ const CONFIG = {
     // Hiển thị kết quả với hiệu ứng
     showResultWithAnimation(resultMessage, totalWin);
     
-    // Lưu lịch sử
+    // lưu lịch sử
     saveToHistory({
         dice: diceValues,
         total: total,
@@ -319,11 +319,11 @@ const CONFIG = {
         timestamp: new Date().toISOString()
     });
     
-    // Reset cược
-    currentBets = [];
+    // reset mức cược
+    currentBets=[];
 }
   
-  // Hàm kiểm tra kết quả cược
+  // kiểm tra kết quả cược
   function checkBetResult(betType, diceValues, total, isOdd, isLow, isHigh) {
     let win = false;
     
@@ -464,7 +464,7 @@ const CONFIG = {
           if (opacity >= 1) clearInterval(fadeIn);
       }, 50);
   
-      // Sử dụng totalWin ở đây
+      // sound
       const sound = new Audio(totalWin > 0 ? 'sound/win.mp3' : 'sound/lose.mp3');
       sound.play();
   }
